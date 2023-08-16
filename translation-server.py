@@ -168,13 +168,15 @@ class HandleSocket:
                 if not data:
                     break
 
-                decoded_data = json.loads(data.decode("utf-8"))
+                decoded_data = json.loads(
+                    data.decode("utf-8", errors='replace'))
 
                 is_admin = self.check_admin(decoded_data)
                 if not is_admin:
                     response_json = json.dumps(
                         {"status": 401, "error": "Unauthorized access"})
-                    client_socket.send(response_json.encode("utf-8"))
+                    client_socket.send(response_json.encode(
+                        "utf-8", errors='replace'))
                     break
 
                 if "method" in decoded_data:
@@ -198,7 +200,8 @@ class HandleSocket:
                     response_data = {"error": "Method not specified"}
 
                 response_json = json.dumps(response_data)
-                client_socket.send(response_json.encode("utf-8"))
+                client_socket.send(response_json.encode(
+                    "utf-8", errors='replace'))
             except Exception as e:
                 print("🔴 Error in handling client:", e)
                 traceback.print_exc()
