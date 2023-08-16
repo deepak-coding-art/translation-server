@@ -9,7 +9,7 @@ import traceback
 
 HostPort = 4000
 secret_key = "123456"
-buffer_size = 10 * 1024  # 10 KB in bytes
+buffer_size = 20 * 1024  # 10 KB in bytes
 
 
 class TranslationService:
@@ -27,7 +27,7 @@ class TranslationService:
                 "facebook/nllb-200-1.3B")
             tokenizer = AutoTokenizer.from_pretrained("facebook/nllb-200-1.3B")
         elif model_type == "large":
-            # Define 2.5B model
+            # Define 3.3B model
             model = AutoModelForSeq2SeqLM.from_pretrained(
                 "facebook/nllb-200-3.3B")
             tokenizer = AutoTokenizer.from_pretrained("facebook/nllb-200-3.3B")
@@ -201,6 +201,7 @@ class HandleSocket:
                 client_socket.send(response_json.encode("utf-8"))
             except Exception as e:
                 print("🔴 Error in handling client:", e)
+                traceback.print_exc()
                 break
 
         client_socket.close()
