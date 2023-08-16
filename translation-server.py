@@ -7,6 +7,7 @@ import json
 import threading
 import traceback
 
+HostPort = 4000
 secret_key = "123456"
 buffer_size = 10 * 1024  # 10 KB in bytes
 
@@ -74,7 +75,7 @@ class TranslationService:
 class HandleSocket:
     def __init__(self) -> None:
         try:
-            self.PORT = 10004
+            self.PORT = HostPort
             self.translator = TranslationService("small")
             self.server_running = True
             self.server_socket = None  # Initialize server socket to None

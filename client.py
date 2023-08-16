@@ -1,6 +1,9 @@
 import socket
 import json
+
 buffer_size = 10 * 1024  # 10 KB in bytes
+HostPort = 4000
+HostIP = "192.168.1.3"
 
 
 def send_request(socket, data):
@@ -15,7 +18,7 @@ def send_request(socket, data):
 
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(("192.168.1.3", 10004))
+client_socket.connect((HostIP, HostPort))
 auth_token = input("Enter Admin API key: ")
 
 while True:
