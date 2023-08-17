@@ -18,7 +18,7 @@ class TranslationService:
         self.translator = self.init_model(modelSize)
 
     # Init translation model
-    def init_model(self, model_type="small", source_language="russian",  target_language="english"):
+    def init_model(self, model_type="super", source_language="russian",  target_language="english"):
         print("Loading model..")
         # Define model and tokenizer
         if model_type == "medium":
@@ -31,6 +31,10 @@ class TranslationService:
             model = AutoModelForSeq2SeqLM.from_pretrained(
                 "facebook/nllb-200-3.3B")
             tokenizer = AutoTokenizer.from_pretrained("facebook/nllb-200-3.3B")
+        elif model_type == "super":
+            model = AutoModelForSeq2SeqLM.from_pretrained(
+                "facebook/nllb-moe-54b")
+            tokenizer = AutoTokenizer.from_pretrained("facebook/nllb-moe-54b")
         else:
             # Define 600mil model
             model = AutoModelForSeq2SeqLM.from_pretrained(
@@ -113,7 +117,7 @@ class HandleSocket:
     def handle_config(self, data):
         try:
             model = data["model"]
-            if model not in ["small", "medium", "large"]:
+            if model not in ["small", "medium", "large", "super"]:
                 return {"status": 400, "error": "Invalid model"}
             self.translator = TranslationService(model)
             return {"status": 200}

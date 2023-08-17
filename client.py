@@ -2,8 +2,8 @@ import socket
 import json
 
 buffer_size = 20 * 1024  # 10 KB in bytes
-HostPort = 45766
-HostIP = "38.147.83.21"
+HostPort = 4000
+HostIP = "192.168.1.2"
 
 
 def send_request(socket, data):
